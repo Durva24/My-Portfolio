@@ -39,8 +39,9 @@ Here are a few highlights—crafted with intention, designed with care:
 
 If you’ve got an idea, a role, or a meme to share—reach out!
 
-[LinkedIn](https://www.linkedin.com/in/durva-dongre/)
-[Email](https://img.shields.io/badge/-Email-D14836?logo=gmail&logoColor=fff)](mailto:durvadongre@gmail.com)
+
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0A66C2?logo=linkedin&logoColor=fff)](https://www.linkedin.com/in/durva-dongre)
+[![Email](https://img.shields.io/badge/-Email-D14836?logo=gmail&logoColor=fff)](mailto:durvadongre@gmail.com)
 
 ---
 > "Stay curious. Build boldly. Stay humble."  
