@@ -1,5 +1,5 @@
 # My-Portfolio
-# 👋 Hey there, I'm Babe!
+# 👋 Hey there, I'm Durva!
 
 🚀Tech enthusiast, creative builder, and passionate learner — I thrive at the intersection of code, curiosity, and meaningful impact.
 
