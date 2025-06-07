@@ -1,0 +1,85 @@
+<!-- views/partials/header.ejs -->
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav">
+      <!-- Logo -->
+      <a href="/" class="logo">
+        <% if (typeof logoText !== 'undefined') { %>
+          <%= logoText %>
+        <% } else { %>
+          Portfolio
+        <% } %>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <ul class="nav-links" id="navLinks">
+        <li>
+          <a href="/" class="nav-link <%= currentPage === 'home' ? 'active' : '' %>">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/about" class="nav-link <%= currentPage === 'about' ? 'active' : '' %>">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="/projects" class="nav-link <%= currentPage === 'projects' ? 'active' : '' %>">
+            Projects
+          </a>
+        </li>
+        <li>
+          <a href="/contact" class="nav-link <%= currentPage === 'contact' ? 'active' : '' %>">
+            Contact
+          </a>
+        </li>
+        <li>
+          <a href="/resume" class="nav-link <%= currentPage === 'resume' ? 'active' : '' %>" target="_blank">
+            Resume
+          </a>
+        </li>
+      </ul>
+
+      <!-- Mobile Menu Toggle -->
+      <div class="mobile-menu-toggle" id="mobileMenuToggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <!-- Mobile Navigation Menu -->
+    <div class="mobile-nav" id="mobileNav">
+      <ul class="mobile-nav-links">
+        <li>
+          <a href="/" class="mobile-nav-link <%= currentPage === 'home' ? 'active' : '' %>">
+            Home
+          </a>
+        </li>
+        <li>
+          <a href="/about" class="mobile-nav-link <%= currentPage === 'about' ? 'active' : '' %>">
+            About
+          </a>
+        </li>
+        <li>
+          <a href="/projects" class="mobile-nav-link <%= currentPage === 'projects' ? 'active' : '' %>">
+            Projects
+          </a>
+        </li>
+        <li>
+          <a href="/contact" class="mobile-nav-link <%= currentPage === 'contact' ? 'active' : '' %>">
+            Contact
+          </a>
+        </li>
+        <li>
+          <a href="/resume" class="mobile-nav-link <%= currentPage === 'resume' ? 'active' : '' %>" target="_blank">
+            Resume
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+
+<!-- Overlay for mobile menu -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay"></div>
