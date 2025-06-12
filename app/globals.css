@@ -24,3 +24,25 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+.animate-pulse {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .5; }
+}
+:root {
+  --color-bg: white;
+  --color-text: black;
+}
+
+[data-theme="dark"] {
+  --color-bg: black;
+  --color-text: white;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
