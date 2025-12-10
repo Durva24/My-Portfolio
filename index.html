@@ -3,14 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Durva | AI & ML Engineer</title>
+    <title>Durva Dongre - AI/ML Engineer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        /* --- NETFLIX-INSPIRED DARK THEME --- */
         :root {
-            --netflix-red: #E50914;
-            --netflix-black: #141414;
-            --netflix-dark-gray: #181818;
-            --netflix-light-gray: #b3b3b3;
-            --white: #ffffff;
+            --color-dark: #141414;
+            --color-darker: #0a0a0a;
+            --color-light: #ffffff;
+            --color-gray: #808080;
+            --color-accent: #e50914;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Roboto', sans-serif;
         }
 
         * {
@@ -20,320 +27,946 @@
         }
 
         body {
-            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--netflix-black);
-            color: var(--white);
-            overflow-x: hidden; /* Prevent horizontal scroll on body */
+            font-family: var(--font-sans);
+            background: var(--color-dark);
+            color: var(--color-light);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
 
-        /* --- Navigation --- */
-        .nav {
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* --- LANDING SCREEN --- */
+        .landing-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--color-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            cursor: pointer;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .landing-screen.fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        .landing-logo {
+            font-family: var(--font-serif);
+            font-size: 6rem;
+            font-weight: 900;
+            color: var(--color-accent);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            to { opacity: 0; visibility: hidden; }
+        }
+
+        /* --- PROFILE SELECTION SCREEN --- */
+        .profile-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: var(--color-dark);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .profile-screen.active {
+            display: flex;
+        }
+
+        .profile-screen.fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        .profile-container {
+            text-align: center;
+            max-width: 1000px;
+            padding: 20px;
+        }
+
+        .profile-title {
+            font-family: var(--font-sans);
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 50px;
+            color: var(--color-light);
+        }
+
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .profile-card {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .profile-card:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 8px;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 3px solid transparent;
+            transition: border-color 0.3s ease;
+        }
+
+        .profile-card:hover .profile-avatar {
+            border-color: var(--color-light);
+        }
+
+        .profile-avatar svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .profile-name {
+            font-size: 1.3rem;
+            color: var(--color-gray);
+            transition: color 0.3s ease;
+        }
+
+        .profile-card:hover .profile-name {
+            color: var(--color-light);
+        }
+
+        /* --- MAIN CONTENT (Hidden Initially) --- */
+        .main-content {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .main-content.active {
+            display: block;
+        }
+
+        /* --- NAVIGATION BAR --- */
+        .navbar {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 20px 4%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
-            z-index: 100;
-            transition: background-color 0.3s;
+            z-index: 1000;
+            transition: background 0.3s;
         }
 
-        .nav.black {
-            background-color: var(--netflix-black);
+        .navbar.scrolled {
+            background: var(--color-darker);
         }
 
-        .nav-logo {
-            color: var(--netflix-red);
-            font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--color-accent);
             letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--color-light);
             text-decoration: none;
-        }
-
-        .nav-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            object-fit: cover;
-        }
-
-        /* --- Hero / Billboard Section --- */
-        .banner {
-            height: 80vh;
-            color: white;
-            object-fit: contain;
-            position: relative;
-            display: flex;
-            align-items: center;
-            background-size: cover;
-            background-position: center top;
-            /* Placeholder gradient if image fails, or overlay */
-            background-image: linear-gradient(to right, #141414 10%, transparent 80%),
-                              linear-gradient(to bottom, transparent 80%, #141414 100%);
-        }
-
-        /* Specific fix for the profile image layout */
-        .banner-image-bg {
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 60%; 
-            height: 100%;
-            object-fit: cover;
-            opacity: 0.6;
-            mask-image: linear-gradient(to right, transparent, black 40%);
-            -webkit-mask-image: linear-gradient(to right, transparent, black 40%);
-            z-index: -1;
-        }
-
-        .banner-contents {
-            margin-left: 4%;
-            padding-top: 140px;
-            height: 190px;
-            max-width: 600px;
-            z-index: 10;
-        }
-
-        .banner-title {
-            font-size: 3rem;
-            font-weight: 800;
-            padding-bottom: 0.3rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .match-score {
-            color: #46d369;
-            font-weight: bold;
-            font-size: 1.1rem;
-            margin-right: 10px;
-        }
-
-        .year-tag {
-            color: var(--netflix-light-gray);
-            border: 1px solid var(--netflix-light-gray);
-            padding: 0 5px;
-            font-size: 0.9rem;
-            margin-right: 10px;
-        }
-
-        .banner-description {
-            width: 100%;
-            line-height: 1.5;
-            padding-top: 1rem;
-            font-size: 1.2rem;
-            max-width: 500px;
-            height: 80px;
-            color: #fff;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-            margin-bottom: 20px;
-        }
-
-        .banner-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .banner-button {
-            cursor: pointer;
-            color: #fff;
-            outline: none;
-            border: none;
-            font-weight: 700;
-            border-radius: 4px;
-            padding: 0.8rem 2rem; 
-            margin-right: 1rem;
-            background-color: rgba(51, 51, 51, 0.5);
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-        }
-
-        .banner-button.play {
-            background-color: white;
-            color: black;
-        }
-
-        .banner-button:hover {
-            color: #000;
-            background-color: #e6e6e6;
-            transform: scale(1.02);
-        }
-        
-        .banner-button.info:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-        }
-
-        /* --- Rows --- */
-        .row {
-            margin-left: 4%;
-            margin-top: 20px;
-            margin-bottom: 40px;
-        }
-
-        .row h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #e5e5e5;
+            font-size: 0.95rem;
             transition: color 0.3s;
         }
-        
-        .row h2:hover {
-            color: white;
+
+        .nav-links a:hover {
+            color: var(--color-accent);
         }
 
-        .row-posters {
+        /* --- HERO SECTION --- */
+        .hero-section {
+            position: relative;
+            height: 85vh;
             display: flex;
-            overflow-y: hidden;
-            overflow-x: scroll;
-            padding: 20px 0 20px 0;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(20,20,20,0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23141414"/><path fill="%231a1a2e" d="M0 300 Q300 200 600 300 T1200 300 L1200 600 L0 600 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            padding: 0 50px;
+            margin-bottom: 50px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: var(--font-serif);
+            font-size: 4.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+
+        .hero-subtitle {
+            font-size: 1.8rem;
+            color: var(--color-accent);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 700px;
+            color: rgba(255,255,255,0.9);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
             gap: 10px;
         }
 
-        /* Hide scrollbar */
-        .row-posters::-webkit-scrollbar {
-            display: none;
-        }
-        .row-posters {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-light);
         }
 
-        /* Cards */
-        .row-poster {
-            background-color: var(--netflix-dark-gray);
-            min-width: 280px;
-            max-width: 280px;
-            border-radius: 4px;
-            transition: transform 450ms;
-            margin-right: 10px;
+        .btn-primary:hover {
+            background: #f40612;
+            transform: scale(1.05);
+        }
+
+        .btn-secondary {
+            background: rgba(109, 109, 110, 0.7);
+            color: var(--color-light);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(109, 109, 110, 0.9);
+        }
+
+        /* --- SECTION STYLING --- */
+        .content-wrapper {
+            padding: 0 50px 50px 50px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--color-light);
+        }
+
+        /* --- CARD GRID (Netflix-style) --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
             position: relative;
-            cursor: pointer;
+            background: var(--color-darker);
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #333;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 200px;
         }
 
-        .row-poster:hover {
-            transform: scale(1.08);
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.6);
             z-index: 10;
-            border-color: var(--netflix-light-gray);
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
         }
 
-        /* Poster Content */
-        .card-image-placeholder {
-            height: 140px;
+        .card-image {
             width: 100%;
-            background: linear-gradient(135deg, #333 0%, #111 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            color: #555;
-            position: relative;
-        }
-        
-        .card-image-placeholder span {
-            position: absolute;
-            font-size: 12px;
-            bottom: 10px;
-            left: 10px;
-            background: rgba(0,0,0,0.6);
-            padding: 2px 6px;
-            border-left: 3px solid var(--netflix-red);
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+            transition: filter 0.3s;
         }
 
-        .card-details {
-            padding: 15px;
-            height: 180px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        .card:hover .card-image {
+            filter: brightness(0.4);
+        }
+
+        .card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
         }
 
         .card-title {
-            font-size: 1rem;
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
             font-weight: 700;
             margin-bottom: 5px;
+            color: var(--color-light);
         }
 
-        .card-meta {
-            font-size: 0.8rem;
-            color: #46d369;
-            margin-bottom: 8px;
-            font-weight: 600;
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: var(--color-gray);
         }
 
-        .card-desc {
+        .card-duration {
             font-size: 0.85rem;
-            color: var(--netflix-light-gray);
-            display: -webkit-box;
-            -webkit-line-clamp: 4;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            line-height: 1.4;
+            color: var(--color-accent);
+            margin-top: 5px;
+        }
+
+        /* --- SKILLS SECTION --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: var(--color-darker);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--color-accent);
+        }
+
+        .skill-category h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--color-accent);
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .skill-tag {
-            display: inline-block;
-            border: 1px solid #555;
-            color: #ddd;
-            padding: 4px 8px;
-            font-size: 0.75rem;
-            margin: 2px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(255,255,255,0.1);
+            color: var(--color-light);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: background 0.3s;
         }
 
-        /* Footer */
+        .skill-tag:hover {
+            background: var(--color-accent);
+        }
+
+        /* --- FOOTER --- */
         .footer {
+            background: var(--color-darker);
+            padding: 40px 50px;
             margin-top: 60px;
-            padding: 40px 4%;
-            color: var(--netflix-light-gray);
-            font-size: 0.9rem;
-            text-align: center;
-            border-top: 1px solid #333;
         }
 
-        .footer a {
-            color: var(--netflix-light-gray);
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-section h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--color-accent);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section li {
+            margin-bottom: 10px;
+            color: var(--color-gray);
+            font-size: 0.9rem;
+        }
+
+        .footer-section a {
+            color: var(--color-gray);
             text-decoration: none;
-            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: var(--color-light);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            color: var(--color-gray);
+            font-size: 0.9rem;
+        }
+
+        /* --- MEDIA QUERIES (Responsiveness) --- */
+        @media (max-width: 900px) {
+            .landing-logo {
+                font-size: 4rem;
+            }
+
+            .profile-title {
+                font-size: 2.5rem;
+            }
+
+            .profile-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+
+            .profile-avatar {
+                width: 150px;
+                height: 150px;
+            }
+
+            .navbar {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                gap: 15px;
+            }
+            
+            .hero-section {
+                height: auto;
+                padding: 100px 20px 50px 20px;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.4rem;
+            }
+            
+            .hero-description {
+                font-size: 1rem;
+            }
+            
+            .content-wrapper {
+                padding: 0 20px 30px 20px;
+            }
+            
+            .card-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+            
+            .skills-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer {
+                padding: 30px 20px;
+            }
         }
         
-        .footer a:hover {
-            text-decoration: underline;
-        }
+        @media (max-width: 600px) {
+            .landing-logo {
+                font-size: 3rem;
+            }
 
-        @media (max-width: 768px) {
-            .banner-title { font-size: 2rem; }
-            .banner-description { font-size: 1rem; }
-            .banner-image-bg { opacity: 0.4; }
+            .profile-title {
+                font-size: 2rem;
+                margin-bottom: 30px;
+            }
+
+            .profile-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 15px;
+            }
+
+            .profile-avatar {
+                width: 120px;
+                height: 120px;
+            }
+
+            .profile-name {
+                font-size: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="portfolio-content">
+    <!-- Landing Screen -->
+    <div class="landing-screen" id="landingScreen">
+        <div class="landing-logo">DURVA</div>
+    </div>
+
+    <!-- Profile Selection Screen -->
+    <div class="profile-screen" id="profileScreen">
+        <div class="profile-container">
+            <h1 class="profile-title">Who's Watching?</h1>
+            <div class="profile-grid">
+                <div class="profile-card" data-profile="recruiter">
+                    <div class="profile-avatar">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id="texture1" patternUnits="userSpaceOnUse" width="10" height="10">
+                                    <path d="M0,5 L5,0 L10,5 L5,10 Z" fill="#0891b2" opacity="0.3"/>
+                                </pattern>
+                            </defs>
+                            <rect width="200" height="200" fill="#06b6d4"/>
+                            <rect width="200" height="200" fill="url(#texture1)"/>
+                            <circle cx="65" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="135" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="68" cy="77" r="3" fill="#ffffff"/>
+                            <circle cx="138" cy="77" r="3" fill="#ffffff"/>
+                            <path d="M70 130 Q100 150 130 130" stroke="#0a0a0a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-name">Recruiter</div>
+                </div>
+
+                <div class="profile-card" data-profile="developer">
+                    <div class="profile-avatar">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id="texture2" patternUnits="userSpaceOnUse" width="8" height="8">
+                                    <circle cx="4" cy="4" r="2" fill="#6b7280" opacity="0.3"/>
+                                </pattern>
+                            </defs>
+                            <rect width="200" height="200" fill="#9ca3af"/>
+                            <rect width="200" height="200" fill="url(#texture2)"/>
+                            <circle cx="65" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="135" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="68" cy="77" r="3" fill="#ffffff"/>
+                            <circle cx="138" cy="77" r="3" fill="#ffffff"/>
+                            <path d="M70 130 Q100 150 130 130" stroke="#0a0a0a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-name">Developer</div>
+                </div>
+
+                <div class="profile-card" data-profile="stalker">
+                    <div class="profile-avatar">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id="texture3" patternUnits="userSpaceOnUse" width="12" height="12">
+                                    <line x1="0" y1="6" x2="12" y2="6" stroke="#dc2626" opacity="0.2" stroke-width="2"/>
+                                    <line x1="6" y1="0" x2="6" y2="12" stroke="#dc2626" opacity="0.2" stroke-width="2"/>
+                                </pattern>
+                            </defs>
+                            <rect width="200" height="200" fill="#ef4444"/>
+                            <rect width="200" height="200" fill="url(#texture3)"/>
+                            <circle cx="65" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="135" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="68" cy="77" r="3" fill="#ffffff"/>
+                            <circle cx="138" cy="77" r="3" fill="#ffffff"/>
+                            <path d="M70 130 Q100 150 130 130" stroke="#0a0a0a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-name">Stalker</div>
+                </div>
+
+                <div class="profile-card" data-profile="adventurer">
+                    <div class="profile-avatar">
+                        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <pattern id="texture4" patternUnits="userSpaceOnUse" width="15" height="15">
+                                    <path d="M0,0 L15,15 M15,0 L0,15" stroke="#f59e0b" opacity="0.2" stroke-width="2"/>
+                                </pattern>
+                            </defs>
+                            <rect width="200" height="200" fill="#fbbf24"/>
+                            <rect width="200" height="200" fill="url(#texture4)"/>
+                            <circle cx="65" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="135" cy="75" r="8" fill="#0a0a0a"/>
+                            <circle cx="68" cy="77" r="3" fill="#ffffff"/>
+                            <circle cx="138" cy="77" r="3" fill="#ffffff"/>
+                            <path d="M70 130 Q100 150 130 130" stroke="#0a0a0a" stroke-width="4" fill="none" stroke-linecap="round"/>
+                        </svg>
+                    </div>
+                    <div class="profile-name">Adventurer</div>
+                </div>
+            </div>
         </div>
+    </div>
+
+    <!-- Main Portfolio Content -->
+    <div class="main-content" id="mainContent">
+        <div class="container" id="portfolio-content"></div>
+    </div>
     
-    <script src="data.js"></script>
     <script>
-        // Navbar scroll effect
-        window.addEventListener("scroll", () => {
-            const nav = document.querySelector(".nav");
-            if(nav) {
-                if (window.scrollY > 100) {
-                    nav.classList.add("black");
-                } else {
-                    nav.classList.remove("black");
+        const portfolioData = {
+            personal: {
+                name: "Durva Dongre",
+                title: "Software Development Engineer (AI/ML)",
+                image: "profile.jpeg",
+                email: "durvadongre@gmail.com",
+                phone: "+91-8268300074",
+                location: "Panvel, Mumbai, Maharashtra, India",
+                linkedin: "https://www.linkedin.com/in/durvadongre",
+                github: "https://github.com/durva24"
+            },
+            
+            about: "Dynamic and results-driven Software Engineer with expertise in AI/ML, building scalable ML pipelines, NLP applications, and robust production deployments. Experienced in handling high-volume data (100K+ records/day) with ultra-low latency (<2s). Passionate about applying cutting-edge AI techniques to create tangible business value.",
+            
+            education: {
+                degree: "Bachelor of Engineering",
+                field: "Electronics & Computer Science",
+                institution: "Pillai HOC College of Engineering & Technology",
+                duration: "2022 - 2026"
+            },
+            
+            skills: {
+                languages: ["Java", "C++", "Python", "SQL"],
+                frameworks: ["React.js", "TensorFlow", "Keras", "Transformers", "Scikit-learn", "Next.js", "Node.js"],
+                databases_cloud: ["AWS (Lambda, S3, EC2)", "Firebase", "PostgreSQL", "MongoDB", "BigQuery"],
+                competencies: ["Backend Development", "Data Engineering", "NLP", "Deep Learning", "LLMs", "Scalable Systems", "REST APIs"]
+            },
+            
+            projects: [
+                {
+                    title: "AI NLP News Justice Tracking Engine",
+                    company: "Deadline",
+                    duration: "Jul 2025 - Aug 2025",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%231a1a2e' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M50 150 L200 50 L350 150 L200 250 Z' opacity='0.3'/%3E%3C/svg%3E",
+                    points: [
+                        "Built AI platform to track news headlines until resolution, processing 10k+ daily articles",
+                        "Implemented event linking & update detection using NLP models for persistent story tracking",
+                        "Improved user retention by 35% through consistent content updates"
+                    ]
+                },
+                {
+                    title: "AI-Based Career Assistant Platform",
+                    company: "JobsForHer",
+                    duration: "Mar 2025 - May 2025",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%230f3460' width='400' height='300'/%3E%3Ccircle fill='%23e50914' cx='200' cy='150' r='80' opacity='0.4'/%3E%3C/svg%3E",
+                    points: [
+                        "Built & deployed an AI chatbot providing personalized career recommendations",
+                        "Designed and deployed the system to reliably support 5K+ daily user interactions"
+                    ]
+                },
+                {
+                    title: "Search Engine Powered by AI",
+                    company: "Peekaboo",
+                    duration: "Jan 2025 - Jun 2025",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23533483' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M100 100 Q200 50 300 100 T300 200 Q200 250 100 200 Z' opacity='0.3'/%3E%3C/svg%3E",
+                    points: [
+                        "Built internal research tool automating data collection from 20+ online sources",
+                        "Developed semantic search for 100K+ documents using vector embeddings and transformer models",
+                        "Optimized query pipelines to achieve sub-<2s retrieval latency"
+                    ]
+                },
+                {
+                    title: "Environmental ML Prediction System",
+                    company: "Project Parisar",
+                    duration: "Jun 2025 - Aug 2025",
+                    image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23094d29' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M50 250 Q100 200 150 220 T250 180 T350 200 L350 300 L50 300 Z' opacity='0.4'/%3E%3C/svg%3E",
+                    points: [
+                        "Engineered ensemble ML models (XGBoost, Random Forest) for AQI & water quality prediction",
+                        "Achieved 15% improvement in prediction accuracy over baseline methods",
+                        "Developed real-time ETL pipelines ingesting 50K+ environmental records/day"
+                    ]
                 }
-            }
+            ],
+            
+            achievements: [
+                { stat: "100K+", label: "Data Records/Day" },
+                { stat: "<2s", label: "Latency Target" },
+                { stat: "35%", label: "User Retention Increase" },
+                { stat: "5K+", label: "Daily Interactions" }
+            ]
+        };
+
+        function renderPortfolio() {
+            const container = document.getElementById('portfolio-content');
+            if (!container) return;
+
+            const renderSkills = (skills) => skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
+            
+            const createProjectCard = (project, index) => {
+                return `
+                    <div class="card">
+                        <img src="${project.image}" alt="${project.title}" class="card-image">
+                        <div class="card-overlay">
+                            <h3 class="card-title">${project.title}</h3>
+                            <p class="card-subtitle">${project.company}</p>
+                            <p class="card-duration">${project.duration}</p>
+                        </div>
+                    </div>
+                `;
+            };
+
+            const html = `
+                <!-- Navigation Bar -->
+                <nav class="navbar" id="navbar">
+                    <div class="logo">${portfolioData.personal.name.split(' ')[0].toUpperCase()}</div>
+                    <ul class="nav-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+
+                <!-- Hero Section -->
+                <section class="hero-section" id="home">
+                    <div class="hero-content">
+                        <h1 class="hero-title">${portfolioData.personal.name}</h1>
+                        <p class="hero-subtitle">${portfolioData.personal.title}</p>
+                        <p class="hero-description">${portfolioData.about}</p>
+                        <div class="hero-buttons">
+                            <a href="#projects" class="btn btn-primary">
+                                ▶ View Projects
+                            </a>
+                            <a href="#contact" class="btn btn-secondary">
+                                ⓘ More Info
+                            </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Content Wrapper -->
+                <div class="content-wrapper">
+                    
+                    <!-- Projects Section -->
+                    <section class="section" id="projects">
+                        <h2 class="section-title">Featured Projects</h2>
+                        <div class="card-grid">
+                            ${portfolioData.projects.map((proj, idx) => createProjectCard(proj, idx)).join('')}
+                        </div>
+                    </section>
+
+                    <!-- Skills Section -->
+                    <section class="section" id="skills">
+                        <h2 class="section-title">Technical Skills</h2>
+                        <div class="skills-container">
+                            <div class="skill-category">
+                                <h3>Languages</h3>
+                                <div class="skill-tags">
+                                    ${renderSkills(portfolioData.skills.languages)}
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h3>Frameworks & Libraries</h3>
+                                <div class="skill-tags">
+                                    ${renderSkills(portfolioData.skills.frameworks)}
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h3>Databases & Cloud</h3>
+                                <div class="skill-tags">
+                                    ${renderSkills(portfolioData.skills.databases_cloud)}
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h3>Core Competencies</h3>
+                                <div class="skill-tags">
+                                    ${renderSkills(portfolioData.skills.competencies)}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Achievements Section -->
+                    <section class="section">
+                        <h2 class="section-title">Key Achievements</h2>
+                        <div class="card-grid">
+                            ${portfolioData.achievements.map(ach => `
+                                <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, var(--color-darker) 0%, #1a1a2e 100%);">
+                                    <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 900; color: var(--color-accent);">${ach.stat}</div>
+                                    <div style="font-size: 1rem; color: var(--color-light); margin-top: 10px;">${ach.label}</div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </section>
+
+                </div>
+
+                <!-- Footer -->
+                <footer class="footer" id="contact">
+                    <div class="footer-grid">
+                        <div class="footer-section">
+                            <h3>Education</h3>
+                            <ul>
+                                <li>${portfolioData.education.degree}</li>
+                                <li>${portfolioData.education.field}</li>
+                                <li>${portfolioData.education.institution}</li>
+                                <li>${portfolioData.education.duration}</li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Contact</h3>
+                            <ul>
+                                <li>📧 ${portfolioData.personal.email}</li>
+                                <li>📱 ${portfolioData.personal.phone}</li>
+                                <li>📍 ${portfolioData.personal.location}</li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Connect</h3>
+                            <ul>
+                                <li><a href="${portfolioData.personal.linkedin}" target="_blank">LinkedIn</a></li>
+                                <li><a href="${portfolioData.personal.github}" target="_blank">GitHub</a></li>
+                            </ul>
+                        </div>
+                        <div class="footer-section">
+                            <h3>Quick Links</h3>
+                            <ul>
+                                <li><a href="#home">Home</a></li>
+                                <li><a href="#projects">Projects</a></li>
+                                <li><a href="#skills">Skills</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <p>&copy; 2025 ${portfolioData.personal.name}. All rights reserved.</p>
+                    </div>
+                </footer>
+            `;
+            
+            container.innerHTML = html;
+
+            // Add scroll effect to navbar
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const landingScreen = document.getElementById('landingScreen');
+            const profileScreen = document.getElementById('profileScreen');
+            const mainContent = document.getElementById('mainContent');
+
+            // Landing screen click handler
+            landingScreen.addEventListener('click', () => {
+                landingScreen.classList.add('fade-out');
+                setTimeout(() => {
+                    landingScreen.style.display = 'none';
+                    profileScreen.classList.add('active');
+                }, 500);
+            });
+
+            // Profile selection handler
+            const profileCards = document.querySelectorAll('.profile-card');
+            profileCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    profileScreen.classList.add('fade-out');
+                    setTimeout(() => {
+                        profileScreen.style.display = 'none';
+                        mainContent.classList.add('active');
+                        renderPortfolio();
+                    }, 500);
+                });
+            });
         });
     </script>
 </body>
