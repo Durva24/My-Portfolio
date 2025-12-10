@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Durva | AI & ML Engineer</title>
+    <style>
+        :root {
+            --netflix-red: #E50914;
+            --netflix-black: #141414;
+            --netflix-dark-gray: #181818;
+            --netflix-light-gray: #b3b3b3;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: var(--netflix-black);
+            color: var(--white);
+            overflow-x: hidden; /* Prevent horizontal scroll on body */
+        }
+
+        /* --- Navigation --- */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7) 10%, rgba(0,0,0,0));
+            z-index: 100;
+            transition: background-color 0.3s;
+        }
+
+        .nav.black {
+            background-color: var(--netflix-black);
+        }
+
+        .nav-logo {
+            color: var(--netflix-red);
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+        }
+
+        .nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            object-fit: cover;
+        }
+
+        /* --- Hero / Billboard Section --- */
+        .banner {
+            height: 80vh;
+            color: white;
+            object-fit: contain;
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center top;
+            /* Placeholder gradient if image fails, or overlay */
+            background-image: linear-gradient(to right, #141414 10%, transparent 80%),
+                              linear-gradient(to bottom, transparent 80%, #141414 100%);
+        }
+
+        /* Specific fix for the profile image layout */
+        .banner-image-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 60%; 
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.6;
+            mask-image: linear-gradient(to right, transparent, black 40%);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 40%);
+            z-index: -1;
+        }
+
+        .banner-contents {
+            margin-left: 4%;
+            padding-top: 140px;
+            height: 190px;
+            max-width: 600px;
+            z-index: 10;
+        }
+
+        .banner-title {
+            font-size: 3rem;
+            font-weight: 800;
+            padding-bottom: 0.3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .match-score {
+            color: #46d369;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+
+        .year-tag {
+            color: var(--netflix-light-gray);
+            border: 1px solid var(--netflix-light-gray);
+            padding: 0 5px;
+            font-size: 0.9rem;
+            margin-right: 10px;
+        }
+
+        .banner-description {
+            width: 100%;
+            line-height: 1.5;
+            padding-top: 1rem;
+            font-size: 1.2rem;
+            max-width: 500px;
+            height: 80px;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+            margin-bottom: 20px;
+        }
+
+        .banner-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .banner-button {
+            cursor: pointer;
+            color: #fff;
+            outline: none;
+            border: none;
+            font-weight: 700;
+            border-radius: 4px;
+            padding: 0.8rem 2rem; 
+            margin-right: 1rem;
+            background-color: rgba(51, 51, 51, 0.5);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .banner-button.play {
+            background-color: white;
+            color: black;
+        }
+
+        .banner-button:hover {
+            color: #000;
+            background-color: #e6e6e6;
+            transform: scale(1.02);
+        }
+        
+        .banner-button.info:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        /* --- Rows --- */
+        .row {
+            margin-left: 4%;
+            margin-top: 20px;
+            margin-bottom: 40px;
+        }
+
+        .row h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #e5e5e5;
+            transition: color 0.3s;
+        }
+        
+        .row h2:hover {
+            color: white;
+        }
+
+        .row-posters {
+            display: flex;
+            overflow-y: hidden;
+            overflow-x: scroll;
+            padding: 20px 0 20px 0;
+            gap: 10px;
+        }
+
+        /* Hide scrollbar */
+        .row-posters::-webkit-scrollbar {
+            display: none;
+        }
+        .row-posters {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Cards */
+        .row-poster {
+            background-color: var(--netflix-dark-gray);
+            min-width: 280px;
+            max-width: 280px;
+            border-radius: 4px;
+            transition: transform 450ms;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .row-poster:hover {
+            transform: scale(1.08);
+            z-index: 10;
+            border-color: var(--netflix-light-gray);
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        /* Poster Content */
+        .card-image-placeholder {
+            height: 140px;
+            width: 100%;
+            background: linear-gradient(135deg, #333 0%, #111 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #555;
+            position: relative;
+        }
+        
+        .card-image-placeholder span {
+            position: absolute;
+            font-size: 12px;
+            bottom: 10px;
+            left: 10px;
+            background: rgba(0,0,0,0.6);
+            padding: 2px 6px;
+            border-left: 3px solid var(--netflix-red);
+        }
+
+        .card-details {
+            padding: 15px;
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .card-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-meta {
+            font-size: 0.8rem;
+            color: #46d369;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--netflix-light-gray);
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .skill-tag {
+            display: inline-block;
+            border: 1px solid #555;
+            color: #ddd;
+            padding: 4px 8px;
+            font-size: 0.75rem;
+            margin: 2px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 60px;
+            padding: 40px 4%;
+            color: var(--netflix-light-gray);
+            font-size: 0.9rem;
+            text-align: center;
+            border-top: 1px solid #333;
+        }
+
+        .footer a {
+            color: var(--netflix-light-gray);
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .banner-title { font-size: 2rem; }
+            .banner-description { font-size: 1rem; }
+            .banner-image-bg { opacity: 0.4; }
+        }
+    </style>
+</head>
+<body>
+    <div id="portfolio-content">
+        </div>
+    
+    <script src="data.js"></script>
+    <script>
+        // Navbar scroll effect
+        window.addEventListener("scroll", () => {
+            const nav = document.querySelector(".nav");
+            if(nav) {
+                if (window.scrollY > 100) {
+                    nav.classList.add("black");
+                } else {
+                    nav.classList.remove("black");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
