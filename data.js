@@ -2,16 +2,15 @@ const portfolioData = {
     personal: {
         name: "Durva Dongre",
         title: "Software Development Engineer (AI/ML)",
-        // Make sure this image path is correct relative to your HTML file
-        image: "images/profile.jpeg", 
+        image: "profile.jpeg",
         email: "durvadongre@gmail.com",
         phone: "+91-8268300074",
         location: "Panvel, Mumbai, Maharashtra, India",
         linkedin: "https://www.linkedin.com/in/durvadongre",
-        github: "https://github.com/durvadongre"
+        github: "https://github.com/durva24"
     },
     
-    about: "AI/ML-focused Software Engineer skilled in building scalable ML pipelines, NLP applications & deployments. Experienced in handling 100K+ data records/day with <2s latency.",
+    about: "Dynamic and results-driven Software Engineer with expertise in AI/ML, building scalable ML pipelines, NLP applications, and robust production deployments. Experienced in handling high-volume data (100K+ records/day) with ultra-low latency (<2s). Passionate about applying cutting-edge AI techniques to create tangible business value.",
     
     education: {
         degree: "Bachelor of Engineering",
@@ -21,208 +20,238 @@ const portfolioData = {
     },
     
     skills: {
-        languages: ["Java", "C++", "Python"],
-        frameworks: ["React.js", "Next.js", "Node.js", "Expo", "TensorFlow", "Keras", "Transformers", "Scikit-learn"],
-        databases: ["Firebase", "Supabase", "PostgreSQL", "AWS", "MongoDB", "BigQuery", "Lambda", "S3", "EC2"],
-        competencies: ["Backend Development", "REST APIs", "Data Engineering", "NLP", "Deep Learning", "LLMs", "Scalable Systems"]
+        languages: ["Java", "C++", "Python", "SQL"],
+        frameworks: ["React.js", "TensorFlow", "Keras", "Transformers", "Scikit-learn", "Next.js", "Node.js"],
+        databases_cloud: ["AWS (Lambda, S3, EC2)", "Firebase", "PostgreSQL", "MongoDB", "BigQuery"],
+        competencies: ["Backend Development", "Data Engineering", "NLP", "Deep Learning", "LLMs", "Scalable Systems", "REST APIs"]
     },
     
     projects: [
         {
-            title: "AI NLP News Justice",
+            title: "AI NLP News Justice Tracking Engine",
             company: "Deadline",
             duration: "Jul 2025 - Aug 2025",
+            image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%231a1a2e' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M50 150 L200 50 L350 150 L200 250 Z' opacity='0.3'/%3E%3C/svg%3E",
             points: [
-                "Built AI platform processing 10k+ daily articles",
-                "Event linking & update detection",
-                "Improved user retention by 35%"
+                "Built AI platform to track news headlines until resolution, processing 10k+ daily articles",
+                "Implemented event linking & update detection using NLP models for persistent story tracking",
+                "Improved user retention by 35% through consistent content updates"
             ]
         },
         {
-            title: "AI Career Assistant",
+            title: "AI-Based Career Assistant Platform",
             company: "JobsForHer",
             duration: "Mar 2025 - May 2025",
+            image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%230f3460' width='400' height='300'/%3E%3Ccircle fill='%23e50914' cx='200' cy='150' r='80' opacity='0.4'/%3E%3C/svg%3E",
             points: [
-                "AI chatbot for career recommendations",
-                "5K+ daily interactions with reliable uptime",
-                "Personalized for women professionals"
+                "Built & deployed an AI chatbot providing personalized career recommendations",
+                "Designed and deployed the system to reliably support 5K+ daily user interactions"
             ]
         },
         {
-            title: "AI Powered Search",
+            title: "Search Engine Powered by AI",
             company: "Peekaboo",
             duration: "Jan 2025 - Jun 2025",
+            image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23533483' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M100 100 Q200 50 300 100 T300 200 Q200 250 100 200 Z' opacity='0.3'/%3E%3C/svg%3E",
             points: [
-                "Internal research tool, 20+ sources",
-                "Semantic search for 100K+ docs",
-                "<2s retrieval latency via Vector DB"
+                "Built internal research tool automating data collection from 20+ online sources",
+                "Developed semantic search for 100K+ documents using vector embeddings and transformer models",
+                "Optimized query pipelines to achieve sub-<2s retrieval latency"
             ]
         },
         {
-            title: "Env Prediction System",
+            title: "Environmental ML Prediction System",
             company: "Project Parisar",
             duration: "Jun 2025 - Aug 2025",
+            image: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect fill='%23094d29' width='400' height='300'/%3E%3Cpath fill='%23e50914' d='M50 250 Q100 200 150 220 T250 180 T350 200 L350 300 L50 300 Z' opacity='0.4'/%3E%3C/svg%3E",
             points: [
-                "Ensemble ML (XGBoost) for AQI",
-                "Improved accuracy by 15%",
-                "ETL pipelines for 50K+ records/day"
-            ]
-        },
-        {
-            title: "BullsEye Finance",
-            company: "Zerodha (Open Source)",
-            duration: "May 2025 - Present",
-            points: [
-                "Personalized finance dashboard",
-                "Smart insights via ML models",
-                "Investment decision visualizations"
+                "Engineered ensemble ML models (XGBoost, Random Forest) for AQI & water quality prediction",
+                "Achieved 15% improvement in prediction accuracy over baseline methods",
+                "Developed real-time ETL pipelines ingesting 50K+ environmental records/day"
             ]
         }
+    ],
+    
+    achievements: [
+        { stat: "100K+", label: "Data Records/Day" },
+        { stat: "<2s", label: "Latency Target" },
+        { stat: "35%", label: "User Retention Increase" },
+        { stat: "5K+", label: "Daily Interactions" }
     ]
 };
 
-// Function to render the portfolio (Netflix Style)
 function renderPortfolio() {
     const container = document.getElementById('portfolio-content');
+    if (!container) return;
+
+    const renderSkills = (skills) => skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('');
     
-    // --- Helper to create a Project Card ---
     const createProjectCard = (project, index) => {
         return `
-            <div class="row-poster">
-                <div class="card-image-placeholder">
-                   <span>TOP 10</span>
-                   <h3>${project.title.charAt(0)}${project.title.charAt(1)}</h3>
-                </div>
-                <div class="card-details">
-                    <div>
-                        <div class="card-meta">98% Match &nbsp; ${project.duration.split(' ')[0]}</div>
-                        <div class="card-title">${project.title}</div>
-                        <div class="card-desc">${project.points[0]}</div>
-                    </div>
-                    <div style="font-size: 0.7rem; color: #777; margin-top: 5px;">
-                        ${project.company}
-                    </div>
+            <div class="card">
+                <img src="${project.image}" alt="${project.title}" class="card-image">
+                <div class="card-overlay">
+                    <h3 class="card-title">${project.title}</h3>
+                    <p class="card-subtitle">${project.company}</p>
+                    <p class="card-duration">${project.duration}</p>
                 </div>
             </div>
         `;
     };
-
-    // --- Helper to create a Skill Card ---
-    const createSkillCard = (skillName, category) => {
-        return `
-            <div class="row-poster" style="min-width: 180px; max-width: 180px;">
-                <div class="card-image-placeholder" style="height: 100px; background: #222;">
-                   <h4 style="color: #E50914;">${skillName}</h4>
-                </div>
-                <div class="card-details" style="height: auto; padding: 10px;">
-                    <div class="card-desc" style="text-align: center;">${category}</div>
-                </div>
-            </div>
-        `;
-    };
-
-    // Combine all skills for the carousel
-    const allSkills = [
-        ...portfolioData.skills.languages.map(s => ({name: s, cat: "Language"})),
-        ...portfolioData.skills.frameworks.map(s => ({name: s, cat: "Framework"})),
-        ...portfolioData.skills.databases.map(s => ({name: s, cat: "Cloud/DB"}))
-    ];
 
     const html = `
-        <div class="nav">
-            <a href="#" class="nav-logo">DURVA.AI</a>
-            <img src="${portfolioData.personal.image}" alt="Profile" class="nav-avatar">
-        </div>
+        <!-- Navigation Bar -->
+        <nav class="navbar" id="navbar">
+            <div class="logo">${portfolioData.personal.name.split(' ')[0].toUpperCase()}</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
 
-        <header class="banner">
-            <img src="${portfolioData.personal.image}" class="banner-image-bg" alt="Hero Background">
-            <div class="banner-contents">
-                <h1 class="banner-title">${portfolioData.personal.name}</h1>
-                <div style="margin-bottom: 15px;">
-                    <span class="match-score">99% Match</span>
-                    <span class="year-tag">2025</span>
-                    <span class="year-tag">U/A 18+</span>
-                    <span style="font-weight: bold; margin-left: 5px;">AI Engineer</span>
-                </div>
-                <h1 class="banner-description">
-                    ${portfolioData.personal.title}.<br>
-                    ${portfolioData.about.split('.')[0]}.
-                </h1>
-                <div class="banner-buttons">
-                    <a href="${portfolioData.personal.linkedin}" target="_blank" class="banner-button play">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-                        Connect
+        <!-- Hero Section -->
+        <section class="hero-section" id="home">
+            <div class="hero-content">
+                <h1 class="hero-title">${portfolioData.personal.name}</h1>
+                <p class="hero-subtitle">${portfolioData.personal.title}</p>
+                <p class="hero-description">${portfolioData.about}</p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">
+                        ▶ View Projects
                     </a>
-                    <a href="${portfolioData.personal.github}" target="_blank" class="banner-button info">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M11 7h2v2h-2zm0 4h2v6h-2z"/></svg>
-                        GitHub Work
+                    <a href="#contact" class="btn btn-secondary">
+                        ⓘ More Info
                     </a>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <div class="row">
-            <h2>Blockbuster Projects</h2>
-            <div class="row-posters">
-                ${portfolioData.projects.map((proj, index) => createProjectCard(proj, index)).join('')}
-            </div>
-        </div>
+        <!-- Content Wrapper -->
+        <div class="content-wrapper">
+            
+            <!-- Projects Section -->
+            <section class="section" id="projects">
+                <h2 class="section-title">Featured Projects</h2>
+                <div class="card-grid">
+                    ${portfolioData.projects.map((proj, idx) => createProjectCard(proj, idx)).join('')}
+                </div>
+            </section>
 
-        <div class="row">
-            <h2>Top Technologies</h2>
-            <div class="row-posters">
-                ${allSkills.map(skill => createSkillCard(skill.name, skill.cat)).join('')}
-            </div>
-        </div>
-
-        <div class="row">
-            <h2>Education & Stats</h2>
-            <div class="row-posters">
-                <div class="row-poster" style="min-width: 350px;">
-                    <div class="card-image-placeholder">
-                        <span style="border-color: #46d369;">DEGREE</span>
-                        <h3>B.E.</h3>
+            <!-- Skills Section -->
+            <section class="section" id="skills">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-container">
+                    <div class="skill-category">
+                        <h3>Languages</h3>
+                        <div class="skill-tags">
+                            ${renderSkills(portfolioData.skills.languages)}
+                        </div>
                     </div>
-                    <div class="card-details">
-                         <div class="card-title">${portfolioData.education.degree}</div>
-                         <div class="card-desc">${portfolioData.education.field}</div>
-                         <div class="card-meta" style="margin-top: 10px;">${portfolioData.education.institution}</div>
+                    <div class="skill-category">
+                        <h3>Frameworks & Libraries</h3>
+                        <div class="skill-tags">
+                            ${renderSkills(portfolioData.skills.frameworks)}
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Databases & Cloud</h3>
+                        <div class="skill-tags">
+                            ${renderSkills(portfolioData.skills.databases_cloud)}
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Core Competencies</h3>
+                        <div class="skill-tags">
+                            ${renderSkills(portfolioData.skills.competencies)}
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="row-poster" style="min-width: 250px;">
-                    <div class="card-image-placeholder" style="background: #111;">
-                        <h1 style="color: #46d369;">100K+</h1>
-                    </div>
-                    <div class="card-details" style="height: auto;">
-                        <div class="card-title" style="text-align: center;">Records Processed/Day</div>
-                    </div>
+            <!-- Achievements Section -->
+            <section class="section">
+                <h2 class="section-title">Key Achievements</h2>
+                <div class="card-grid">
+                    ${portfolioData.achievements.map(ach => `
+                        <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; background: linear-gradient(135deg, var(--color-darker) 0%, #1a1a2e 100%);">
+                            <div style="font-family: var(--font-serif); font-size: 3rem; font-weight: 900; color: var(--color-accent);">${ach.stat}</div>
+                            <div style="font-size: 1rem; color: var(--color-light); margin-top: 10px;">${ach.label}</div>
+                        </div>
+                    `).join('')}
                 </div>
+            </section>
 
-                <div class="row-poster" style="min-width: 250px;">
-                    <div class="card-image-placeholder" style="background: #111;">
-                        <h1 style="color: #46d369;">< 2s</h1>
-                    </div>
-                    <div class="card-details" style="height: auto;">
-                        <div class="card-title" style="text-align: center;">Latency Achieved</div>
-                    </div>
-                </div>
-            </div>
         </div>
 
-        <div class="footer">
-            <p>Questions? Contact ${portfolioData.personal.email}</p>
-            <div style="margin-top: 10px;">
-                <a href="${portfolioData.personal.linkedin}">LinkedIn</a>
-                <a href="${portfolioData.personal.github}">GitHub</a>
-                <a href="mailto:${portfolioData.personal.email}">Email</a>
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h3>Education</h3>
+                    <ul>
+                        <li>${portfolioData.education.degree}</li>
+                        <li>${portfolioData.education.field}</li>
+                        <li>${portfolioData.education.institution}</li>
+                        <li>${portfolioData.education.duration}</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <ul>
+                        <li>📧 ${portfolioData.personal.email}</li>
+                        <li>📱 ${portfolioData.personal.phone}</li>
+                        <li>📍 ${portfolioData.personal.location}</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <ul>
+                        <li><a href="${portfolioData.personal.linkedin}" target="_blank">LinkedIn</a></li>
+                        <li><a href="${portfolioData.personal.github}" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#projects">Projects</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                    </ul>
+                </div>
             </div>
-            <p style="margin-top: 20px; font-size: 0.7rem; color: #555;">© 2025 Durva Dongre. No Rights Reserved. Just Kidding.</p>
-        </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 ${portfolioData.personal.name}. All rights reserved.</p>
+            </div>
+        </footer>
     `;
     
     container.innerHTML = html;
+
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', () => {
+        const navbar = document.getElementById('navbar');
+        if (window.scrollY > 100) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
 }
 
-// Render the portfolio when the page loads
 document.addEventListener('DOMContentLoaded', renderPortfolio);
